@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    Lista de Conjuntos
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="container">
+    <p></p>
+    <h2>Ruas do conjunto: {{ codConjunto }}!</h2>
+    <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+    <div class="table-responsive">
+        <h3>Lista de ruas</h3>
+        Entrada: {{ entrada }}
+        <div class="text-right">
+            <p> Quantidade de ruas: {{ qtd }}</p>
+            <table class="table table-dark table-striped table-hover" border="5">
+                <tr>
+                    <th width="100">Cód Conj</th>
+                    <th width="100">Cód Rua</th>
+                    <th width="150">Logradouro</th>
+                    <th>Nome da Rua</th>
+                    <th width="100">CEP</th>
+                    <th>Imóveis</th>
+                </tr>
+                {% for rua in ruas: %}
+                <tr>
+                    <td>{{ rua[0] }}</td>
+                    <td>{{ rua[1] }}</td>
+                    <td>{{ rua[3] }}</td>
+                    <td>{{ rua[4] }}</td>
+                    <td>{{ rua[2] }}</td>
+                    <td><a href="{{ url_for('imoveisRua', rua=rua[1], nomeRua=rua[4], conjunto=rua[0], nomeConjunto=nomeConjunto)}} ">Imóveis</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>

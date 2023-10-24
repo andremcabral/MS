@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>
+        Cadastros
+    </title>
+</head>
+<body>
+    {% block body %}
+    <h1>ATENÇÃO: INFORMAÇÕES APENAS PARA SIMPLES CONSULTA, PODEM PRECISAR DE VALIDAÇÃO</h1>
+    <div class="popup">
+        <div><!--ÁREA 2-->
+            Entrada: {{ entrada }}
+            <table>
+                <tr>
+                    <td> <!--Cadastro de conjuntos-->
+                        <table class="table table-dark" border="1">
+                            <tr>
+                                <td width="120px"><img src="static/img/cehab_azul.png"/></td>
+                                <td align="center" colspan="2"><h3>Cadastro de conjuntos:<br>(SIGI + Planilhas)</h3></td>
+                                <td width="80px"><img src="static/img/excel.png"/></td>
+                                <form action="{{ url_for('conjuntos', referenciaCon=referenciaCon, referenciaCod=referenciaCod, entrada=entrada) }}">
+                                    <tr align="center">
+                                        <td width="120px">Cód. Conjunto:<input type="text" id="referenciaCod" name="referenciaCod" placeholder="Código"></td>
+                                        <td width="10px">OU</td>
+                                        <td width="300px" colspan="2">Filtro por Nome do Conjunto:<input type="text" id="referenciaCon" name="referenciaCon" placeholder="Nome do Conjunto"></td>
+                                    <tr align="center"><td colspan="4"><button type="submit" class="botao-login">Consulta Conjuntos</button></td></tr>
+                                </form>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </td>
+                    <td> <!--Conjuntos por Bairro-->
+                        <table class="table table-dark" border="1">
+                            <tr>
+                                <td width="120px"><img src="static/img/cehab_azul.png"/></td>
+                                <td align="center"><h3>Conjuntos por Bairro:<br>(SIGI + Planilhas)</h3></td>
+                                <td width="80px"><img src="static/img/excel.png"/></td>
+                                <form action="{{ url_for('bairro', bairro=bairro, entrada=entrada) }}">
+                                    <tr align="center">
+                                        <td colspan="3">Filtro por Nome do Bairro:<input type="text" id="bairro" name="bairro" placeholder="Nome do Bairro"></td>
+                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Bairro</button></td></tr>
+                                </form>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+<footer>
+    <div align="right">{{ status }}: "{{ nome }}" em "{{ localAcesso }}"<br>AndreMC</div>
+</footer>
+</html>

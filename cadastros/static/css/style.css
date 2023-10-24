@@ -1,0 +1,371 @@
+--corBotao: blue;
+
+* {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+a{
+    color: lightBlue;
+    a:hover: black;
+    text-decoration:none;
+}
+.a:hover {
+  text-decoration: striped;
+  color: red;
+}
+
+.botao-login {
+  border-radius: 25px;
+  padding: 15px 20px;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  background-color: darkblue;
+  color: white;
+}
+.botao-1 {
+  border-radius: 25px;
+  padding: 05px 10px;
+  margin: 0px
+  width: 100%;
+  border: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: darkblue;
+  text-decoration: none;
+}
+
+.botao-login:hover {
+  background-color: red;
+}
+
+.link-criarconta {
+  color: white;
+  text-decoration: none;
+}
+
+.link-criarconta:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.botao-perfil a {
+  background-color: darkblue;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+
+.botao-perfil a:hover {
+  background-color: red;
+  text-decoration: none;
+}
+
+.table>:not(caption)>*>* {
+    padding: .5rem .5rem;
+    vertical-align: middle;
+    color: var(--bs-table-color-state,var(--bs-table-color-type,var(--bs-table-color)));
+    background-color: black;
+    border-bottom-width: var(--bs-border-width);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state,var(--bs-table-bg-type,var(--bs-table-accent-bg)));
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)>
+*{--bs-table-color-type:white;--bs-table-bg-type:black}
+
+.table-striped>tbody>tr:nth-of-type(even)>
+*{--bs-table-color-type:white;--bs-table-bg-type:rgba(1,1,1,0.1)}
+
+.table-hover>tbody>tr:hover>
+*{--bs-table-color-state:white;--bs-table-bg-state:darkblue}
+
+body {
+  font-family: Montserrat;
+  color: white;
+  vertical-align: middle;
+}
+
+nav {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+h1 {
+  color: red;
+  text-align: center;
+  font-size: 30px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+}
+h2 {
+  color: lightblue;
+  text-align: center;
+  font-size: 30px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+h3 {
+  color: lightblue;
+  font-size: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+tr{
+    border:10px;
+    border-color: black;
+    border-radius: 25px;
+    vertical-align: middle;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.containerCheio {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  background-color: black;
+  width: 100%;
+  padding: 55px;
+  height: 100%;
+}
+
+.container50 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  width: 50%;
+  height: 100%;
+}
+.container2 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+  width: 100%;
+  height: 100%;
+}
+.containerGeral {
+  display: flex;
+  border-size: 5;
+  flex-direction: column;
+  row-gap: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.container-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+}
+
+.popup {
+  /* display: none !important; */
+  width: 95%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10%;
+  padding: 1%;
+  border-radius: 32px;
+  background-color: black;
+  vertical-align: middle;
+}
+
+.text-right{
+    color: white;
+}
+
+.btn-outline-dark{
+    color: white;
+}
+
+.btn-dark{
+    color: white;
+}
+
+.btn-outline-dark.disabled{
+    color: white;
+}
+
+img {
+  width: 100%;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.logo-pinterest {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  column-gap: 4px;
+}
+
+.link-nav {
+  font-size: 16px;
+  font-weight: 600;
+  color: darkgray;
+  text-decoration: none;
+}
+
+.link-nav:hover {
+  text-decoration: underline;
+  color: red;
+}
+
+.restante-nav {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  width: fit-content;
+}
+
+.container-login {
+  padding-bottom: 100px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.div-input {
+  border-radius: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.div-botao {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+  margin-top: 10px;
+}
+
+.label {
+  margin-right: auto;
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+input::placeholder{
+    color: white;
+}
+
+input {
+  background: #222;
+  width: 100%;
+  color: white;
+  font-size: 16px;
+  padding: 15px;
+  border: 2px solid black;
+  border-radius: 25px;
+  box-sizing: border-box;
+  font-family: Verdana;
+}
+
+.conteudo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
+  max-width: 100vw;
+  column-gap: 10px;
+  row-gap: 30px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.bloco-imagem img {
+  border-radius: 20px;
+  height: 40vh;
+  object-fit: cover;
+}
+
+.bloco-add-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.botao-arquivo {
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 0;
+  background-color: darkblue;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.bloco-arquivo {
+  background-color: darkblue;
+  padding: 10px 20px;
+  border-radius: 55px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.input-arquivo {
+  display: none;
+}
+
+#imagem-arquivo {
+  display: none;
+}
+
+#imagem-arquivo.visivel {
+  display: inline-block;
+}
+
+.bloco-add-img .botao-login {
+  width: auto;
+}
+
+.bloco-input-botao {
+  display: flex;
+  column-gap: 20px;
+}
+
+label{
+    vertical-align: middle;
+    display: table-cell;
+}
+
+img{
+  display: flex;
+  column-gap: 20px;
+}
+
+footer{
+    color: darkgray;
+    padding: 1%;
+}

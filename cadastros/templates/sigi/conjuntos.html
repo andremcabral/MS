@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    Lista de Conjuntos
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="container">
+    <p></p>
+    <h2>Conjuntos:</h2>
+    <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+    <div class="table-responsive">
+        <h3>Lista de conjuntos encontrados - Filtro: {{ referencia }} - </h3>
+        Entrada: {{ entrada }}
+        <div class="text-right">
+            <p> Quantidade de registros encontrados: {{ qtd }}</p>
+            <table class="table table-dark table-striped table-hover" border="5">
+                <tr>
+                    <th></th>
+                    <th>Código</th>
+                    <th>Nome(Planilha)</th>
+                    <th>Nome(SIGI)</th>
+                    <th>Bairro(Planilha)</th>
+                    <th>Bairro(SIGI)</th>
+                    <th>Município(Planilha)</th>
+                    <th>Município(SIGI)</th>
+                </tr>
+                {% for conjunto in conjuntos: %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ conjunto[1] }}</td>
+                    <td>{{ conjunto[2] }}</td>
+                    <td>{{ conjunto[3] }}</td>
+                    <td>{{ conjunto[4] }}</td>
+                    <td>{{ conjunto[5] }}</td>
+                    <td>{{ conjunto[15] }}</td>
+                    <td>{{ conjunto[14] }}</td>
+<!--                    <td align="center">{% if conjunto[4] == "True" %}Sim{% else %}Não{% endif %}</td>-->
+                    <td><a href="{{ url_for('conjunto', codConjunto=conjunto[1], nomeConjunto=conjunto[2])}} ">Detalhes</a></td>
+                    <td><a href="{{ url_for('ruas', codConjunto=conjunto[1], nomeConjunto=conjunto[2])}} ">Ruas</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>

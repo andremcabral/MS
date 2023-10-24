@@ -1,0 +1,59 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    RESUMO
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="containerCheio">
+    <p></p>
+    <h2 align="center">Comparação de imóveis > Prefeitura X Planilha do SIGI:</h2>
+    <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+    <div>
+        <h3>Lista de imóveis encontrados - Filtro: {{ referencia }} - </h3>
+        <div>
+            <p> Quantidade de registros encontrados: {{ qtdTotal }}</p>
+            <p> Quantidade de registros exibidos: {{ qtd }}</p>
+<!--            'CodConjunto','NomeConjunto','BairroPlanilha','BairroIPTU','RuaPLANILHA','RuaSIGI','CL','inscricao','Número','Bloco','AptPLANILHA','AptIPTU','Compl','Imób','Lg','ContribuinteIPTU','ContribuintePLANILHA','dados'-->
+            <table class="table table-dark table-striped table-hover" border="1">
+                <tr>
+                    <th width="30">Cod</th>
+                    <th width="190">NomeConjunto</th>
+                    <th width="180">Bairro IPTU</th>
+                    <th>Bairro SIGI</th>
+                    <th width="30">Log</th>
+                    <th width="180">Rua IPTU</th>
+                    <th>Rua SIGI</th>
+                    <th width="70">CL</th>
+                    <th width="90">Inscrição</th>
+                    <th>Núm</th>
+                    <th>Imob</th>
+                    <th>Contribuinte IPTU</th>
+                    <th>Contribuinte SIGI</th>
+                    <th>Dados</th>
+                </tr>
+                {% for linha in resumo: %}
+                <tr>
+                    <td>{{ linha.0 }}</td>
+                    <td>{{ linha.1 }}</td>
+                    <td>{{ linha.3 }}</td>
+                    <td style="font-size:11px">{{ "=" if linha.2==linha.3 else linha.2 }}</td>
+                    <td>{{ linha.10 }}</td>
+                    <td>{{ linha.4 }}</td>
+                    <td style="font-size:11px">{{ "=" if linha.4==linha.5 else linha.5 }}</td>
+                    <td>{{ linha.6 }}</td>
+                    <td>{{ linha.7 }}</td>
+                    <td>{{ linha.8 }}</td>
+                    <td>{{ linha.9 }}</td>
+                    <td style="font-size:11">{{ linha.11 }}</td>
+                    <td>{{ linha.12 }}</td>
+                    <td>{{ linha.13 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>

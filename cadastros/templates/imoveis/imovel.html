@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    Imóvel
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="container">
+<p></p>
+    <h2>Detalhes do Imóvel: {{ imovel }}</h2>
+    <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+    <form method="POST">
+        {{ form.csrf_token }}
+        <table class="table table-dark table-striped table-hover" border="5">
+            <tr><td>CL:</td><td>{{ imoveis[0][2] }}</td></tr>
+            <tr><td>Inscrição:</td><td>{{ imoveis[0][0] }}</td></tr>
+            <tr><td>Dados:</td><td>{{ imoveis[0][1] }}</td></tr>
+            <tr><td>Rua:</td><td>{{ imoveis[0][3] }}</td></tr>
+            <tr><td>Número:</td><td>{{ imoveis[0][4] }}</td></tr>
+            <tr><td>Complemento:</td><td>{{ imoveis[0][5] }}</td></tr>
+            <tr><td>Bairro:</td><td>{{ imoveis[0][6] }}</td></tr>
+            <tr><td>Contribuinte:</td><td>{{ imoveis[0][7] }}</td></tr>
+            <tr><td></td></tr>
+        </table>
+        <a href="{{ url_for('confereInscricao', numInsc=imoveis[0][0]) }} " target="_blank" class="botao-login">confere</a>
+    </form>
+</body>
+{% endblock %}
+</html>

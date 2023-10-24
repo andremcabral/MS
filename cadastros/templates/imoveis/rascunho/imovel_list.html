@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista de Imóveis</title>
+</head>
+<body>
+<p>"<"/p>
+{{ object_list }}
+<input type="submit" value="Voltar para o Início" onclick="location.href = '{% url 'appInicial:inicio'%}'">
+<h1>Lista de Imóveis Encontrados:</h1>
+    <table class="table" align="left">
+<!--    CRIA UM LAÇO DE REPETIÇÃO PARA EXIBIR A LISTA DE REGISTROS -->
+        <tr>
+            <th>INSCRIÇÃO</th>
+            <th>DADOS</th>
+            <th> - </th>
+            <th> - </th>
+            <th> - </th>
+        </tr>
+    {% for imovel in object_list %}
+        <tr>
+            <td> {{ imovel.inscricao }} </td>
+            <td> {{ imovel.dados }} </td>
+            <td><a href="">Editar</a></td>
+            <td><a href="">Excluir</a></td>
+            <td><a href=''>Excluir</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+<!-- LOCATION.HREF LOCALIZA O CAMINHO PELO NOME REGISTRADO NO ARQUIVO URLS -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lista de Imóveis</title>
+</head>
+<body>
+<p>"<"/p>
+{{ object_list }}
+<input type="submit" value="Voltar para o Início" onclick="location.href = '{% url 'appInicial:inicio'%}'">
+<h1>FILTRADO:</h1>
+<input type="text">
+<input type="submit">
+<!-- LOCATION.HREF LOCALIZA O CAMINHO PELO NOME REGISTRADO NO ARQUIVO URLS -->
+</body>
+</html>

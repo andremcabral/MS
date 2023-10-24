@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    Cadastro de Usuários
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="container">
+    <p></p>
+    <h2>Usuário:</h2>
+    <a href="{{ url_for('homepage') }} " class="botao-login">Início</a>
+    <div class="table-responsive">
+        <h3>Usuários cadastrados</h3>
+        <div class="text-right">
+            <tr>
+                <form action="{{ url_for('usuario', usuario=usuario, localAcesso=localAcesso) }}">
+                    <tr>
+                        <td>Usuário: {{ usuario }}</td>
+<!--                        <td>Usuário:<input type="text" id="usuariotxt" name="usuariotxt" placeholder="Usuário"></td>-->
+                        <td><input type="text" id="nometxt" name="nometxt" placeholder="Nome"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="botao-login">Cadastrar</button></td>
+                    </tr>
+                </form>
+            </tr>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>
