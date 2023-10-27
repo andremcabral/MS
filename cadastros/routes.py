@@ -5,6 +5,7 @@ from instance.trataBanco import conecta
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 # from flask_paginate import Pagination, get_page_parameter
 # from flask_paginate import Pagination, get_page_args
 
@@ -30,7 +31,7 @@ cursorSIGI = conecta(driver, server, 'Dados_Sigi')
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
-linhas = 400
+linhas = 300
 dicUsuarios={}
 
 #  /////////////////////////// ENTRADAS //////////////////////////////////////////////////
@@ -38,8 +39,7 @@ dicUsuarios={}
 def consulta():
     global localAcesso, usuarioAtual, status, nome
     usuarioAtual = os.getenv('USERNAME')
-    localAcesso=os.getenv('COMPUTERNAME')
-    # cursor = conecta(driver, server, 'CL_Insc_Cehab')
+    localAcesso = os.getenv('COMPUTERNAME')
     cadUsuario = cursorCL.execute(f"select * from Usuarios where usuario = '{usuarioAtual}'").fetchall()
     if len(cadUsuario)==0:
         return render_template("usuario.html", usuario=usuarioAtual, localAcesso=localAcesso)
@@ -53,8 +53,7 @@ def homepage():
     global localAcesso, usuarioAtual, status, nome
     # usuarioAtual = os.getlogin()
     usuarioAtual = os.getenv('USERNAME')
-    localAcesso=os.getenv('COMPUTERNAME')
-    # cursor = conecta(driver, server, 'CL_Insc_Cehab')
+    localAcesso = os.getenv('COMPUTERNAME')
     cadUsuario = cursorCL.execute(f"select * from Usuarios where usuario = '{usuarioAtual}'").fetchall()
     if len(cadUsuario)==0:
         return render_template("usuario.html", usuario=usuarioAtual, localAcesso=localAcesso)
@@ -79,7 +78,6 @@ def usuario(usuario, localAcesso):
 @app.route("/imoveis") # IPTU
 def imoveis():
     global imoveis
-    # cursor = conecta(driver, server, 'CL_Insc_Cehab')
     referenciaInsc = request.args.get('referenciaInsc')
     referenciaDados = request.args.get('referenciaDados')
     referenciaNum = request.args.get('referenciaNum')
@@ -89,7 +87,7 @@ def imoveis():
     formulario = Imovel
     if referenciaInsc:
         referencia = referenciaInsc
-        imoveis = cursorCL.execute(f"select top 100 * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao ").fetchall()
+        imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao ").fetchall()
         qtdEncontrada = len(imoveis)
         qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%'").fetchall())
         referenciaDados = ""
@@ -154,7 +152,7 @@ def imoveis():
 @app.route("/imoveis/imovel/<imovel>") # DETALHES DE UM IMÓVEL
 def imovel(imovel):
     form = Imovel()
-    imoveis = cursorCL.execute(f"select * from {tabelaIPTU} where inscricao = '{imovel}'").fetchall()
+    imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where inscricao = '{imovel}'").fetchall()
     # imovel = Imovel.query.filter_by(inscricao=imovel).first()
     return render_template("imoveis/imovel.html", imovel=imovel, form=form, imoveis=imoveis, localAcesso=localAcesso, status=status, nome=nome)
 
@@ -176,13 +174,10 @@ def listaConjuntos():
     formulario = Conjunto
     if referenciaCod:
         referencia = request.args.get('referenciaCod')
-        # conjuntos = cursor.execute(f"select * from dbo.conjuntos where CodConjunto like '%{referencia}%' order by CodConjunto").fetchall()
-        conjuntos = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where COD like '%{referencia}%' order by COD").fetchall()
+        conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where COD like '%{referencia}%' order by COD").fetchall()
     else:
         referencia = request.args.get('referenciaCon')
-        # conjuntos = cursor.execute(f"select * from dbo.conjuntos where NomeConjunto like '%{referencia}%' order by CodConjunto").fetchall()
-        # conjuntos = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL").fetchall()
-        conjuntos = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' order by COD").fetchall()
+        conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' or nomeSigi like '%{referencia}%' or bairroPlanilha like '%{referencia}%' or bairroSigi like '%{referencia}%' order by COD").fetchall()
     qtdEncontrada = len(conjuntos)
     return render_template("sigi/conjuntos.html", conjuntos=conjuntos, form=formulario, qtd=qtdEncontrada, referencia=referencia, linhas=linhas, localAcesso=localAcesso, status=status, nome=nome)
 
@@ -190,41 +185,45 @@ def listaConjuntos():
 def bairro():
     bairro = request.args.get('bairro')
     # cursor = conecta(driver, server, 'Dados_Sigi')
-    conjuntos = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where bairroPlanilha like '%{bairro}%' or bairroSIGI like '%{bairro}%' order by bairroPlanilha").fetchall()
+    conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where bairroPlanilha like '%{bairro}%' or bairroSIGI like '%{bairro}%' order by bairroPlanilha").fetchall()
     qtd=len(conjuntos)
     return render_template("sigi/conjuntos.html", conjuntos=conjuntos, qtd=qtd, localAcesso=localAcesso, status=status, nome=nome)
 
 @app.route("/conjunto/<codConjunto>/<nomeConjunto>") # DETALHES DO CONJUNTO
 def conjunto(codConjunto, nomeConjunto):
     # cursor = conecta(driver, server, 'Dados_Sigi')
-    conjunto = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where COD = '{codConjunto}'").fetchall()
+    conjunto = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where COD = '{codConjunto}'").fetchall()
     return render_template("sigi/conjunto.html", conjunto=conjunto, codConjunto=codConjunto, nomeConjunto=nomeConjunto, localAcesso=localAcesso, status=status, nome=nome)
 
 @app.route("/conjunto/ruas/<codConjunto>") # RUAS DO CONJUNTO
 def ruas(codConjunto):
-    # cursor = conecta(driver, server, 'Dados_Sigi')
-    ruas = cursorSIGI.execute(f"select top 500 * from dbo.ruas where CodConjunto = '{codConjunto}' order by nomeRua").fetchall()
+    ruas = cursorSIGI.execute(f"select top {linhas} * from dbo.ruas where CodConjunto = '{codConjunto}' order by nomeRua").fetchall()
     qtd=len(ruas)
     return render_template("sigi/ruas.html", ruas=ruas, codConjunto=codConjunto, qtd=qtd, localAcesso=localAcesso, status=status, nome=nome)
 
+@app.route("/ruas-conjuntos/") # RUAS DO CONJUNTO
+def ruasConjunto():
+    referenciaConjRua=nome=request.args.get('referenciaConjRua')
+    ruas = cursorSIGI.execute(f"select top {linhas} * from dbo.Ruas_Conjunto where nomeConjunto like '%{referenciaConjRua}%' order by nomeRua").fetchall()
+    qtd=len(ruas)
+    return render_template("sigi/ruasConjuntos.html", ruas=ruas, nomeConjunto=referenciaConjRua, qtd=qtd, localAcesso=localAcesso, status=status, nome=nome)
+
 @app.route("/conjunto/imoveis/<conjunto>/<rua>/<nomeRua>") # IMÓVEIS POR RUA
 def imoveisRua(conjunto, rua, nomeRua):
-    imoveis = cursorSIGI.execute(f"select * from dbo.Dados_Imovel_Morador where CodConjunto = '{conjunto}' and NomeRua = '{nomeRua}' order by CodImovel").fetchall()
+    imoveis = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where CodConjunto = '{conjunto}' and NomeRua = '{nomeRua}' order by CodImovel").fetchall()
     qtd=len(imoveis)
     return render_template("sigi/imoveisRua.html", imoveis=imoveis, rua=rua, conjunto=conjunto, qtd=qtd, nomeRua=nomeRua, localAcesso=localAcesso, status=status, nome=nome)
 
 @app.route("/<codConjunto>/<codImob>") # DETALHES DO IMÓVEL
 def detalhesImovel(codConjunto,codImob):
-    # cursor = conecta(driver, server, 'Dados_Sigi')
-    imovel = cursorSIGI.execute(f"select * from dbo.Dados_Imovel_Morador where CodConjunto = '{codConjunto}' and CodImovel = '{codImob}'").fetchall()
-    # print(imovel)
+    imovel = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where CodConjunto = '{codConjunto}' and CodImovel = '{codImob}'").fetchall()
     return render_template("sigi/detalhesImovel.html", conjunto=conjunto, imovel=imovel, localAcesso=localAcesso, status=status, nome=nome)
 
 #  /////////////////////////// ÁREA 3 - SIGI ////////////////////////////////////
 @app.route("/ruas") # Cadastro de ruas no SIGI
 def ruasGeral():
     nomeRua = request.args.get('referenciaNomeRua')
-    ruas = cursorSIGI.execute(f"select top 500 * from dbo.ruas where NomeRua like '%{nomeRua}%' order by nomeRua ").fetchall()
+    ruas = cursorSIGI.execute(f"select top {linhas} * from dbo.ruas where NomeRua like '%{nomeRua}%' order by nomeRua ").fetchall()
     qtd=len(ruas)
     return render_template("sigi/ruas.html", ruas=ruas, qtd=qtd, localAcesso=localAcesso, status=status, nome=nome)
 
@@ -232,7 +231,7 @@ def ruasGeral():
 def imob():
     imob = request.args.get('imob')
     conj = request.args.get('conj')
-    imoveis = cursorSIGI.execute(f"select top 500 * from dbo.Dados_Imovel_Morador where CodConjunto like '%{conj}%' and CodImovel like '%{imob}%' order by CodImovel").fetchall()
+    imoveis = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where CodConjunto like '%{conj}%' and CodImovel like '%{imob}%' order by CodImovel").fetchall()
     qtd=len(imoveis)
     return render_template("sigi/imoveisRua.html", imoveis=imoveis, imob=imob, conjunto=conj, qtd=qtd, localAcesso=localAcesso, status=status, nome=nome)
 
@@ -241,7 +240,7 @@ def imoveisMutuario():
     print('mutuarios')
     imoveisMutuario = request.args.get('imoveisMutuario')
     # cursor = conecta(driver, server, 'Dados_Sigi')
-    imoveis = cursorSIGI.execute(f"select top 100 * from dbo.Dados_Imovel_Morador where NomeMorador like '%{imoveisMutuario}%' order by NomeMorador").fetchall()
+    imoveis = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where NomeMorador like '%{imoveisMutuario}%' order by NomeMorador").fetchall()
     qtdEncontrada = cursorSIGI.execute(f"select * from dbo.Dados_Imovel_Morador where NomeMorador like '%{imoveisMutuario}%'").fetchall()
     qtdEncontrada = len(qtdEncontrada)
     qtd=len(imoveis)
@@ -252,7 +251,6 @@ def imoveisMutuario():
 def resumo():
     referenciaCodCJ = request.args.get('referenciaCodCJ')
     referenciaRua = request.args.get('referenciaRua')
-    linhas = 100
     if referenciaCodCJ:
         resumo = cursorCL.execute(f"select top {linhas} * from dbo.resumo where codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, ruaPLANILHA").fetchall()
         qtdTotal = cursorCL.execute(f"select * from dbo.resumo where codConjunto like '%{referenciaCodCJ}%'").fetchall()

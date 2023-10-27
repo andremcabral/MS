@@ -35,7 +35,7 @@
                                             <td><br><input type="checkbox" name="E_Num" value="E">E</td>
                                             <td width="180px">Filtro por Número:<input type="text" id="referenciaNum" name="referenciaNum" placeholder="Número"></td>
                                             <td><br><input type="checkbox" name="E_Bairro" value="E">E</td>
-                                            <td width="200px">Filtro por Bairro:<input type="text" id="referenciaBairro" name="referenciaBairro" placeholder="Bairro"></td>
+                                            <td width="150px">Filtro por Bairro:<input type="text" id="referenciaBairro" name="referenciaBairro" placeholder="Bairro"></td>
                                             <td><br><button type="submit" class="botao-login">Consulta</button></td>
                                         </tr>
                                     </form>
@@ -47,6 +47,7 @@
                 </table>
             </div>
         </div><br>
+
     <div class="popup"><!----------------ÁREA 2 - SIGI E PLANILHAS------------------------>
         <div><table><tr>
                     <td> <!--Cadastro de conjuntos-->
@@ -57,7 +58,7 @@
                                     <tr align="center">
                                         <td width="120px">Cód. Conjunto:<input type="text" id="referenciaCod" name="referenciaCod" placeholder="Código"></td>
                                         <td width="10px">OU</td>
-                                        <td width="300px" colspan="2">Filtro por Nome do Conjunto:<input type="text" id="referenciaCon" name="referenciaCon" placeholder="Nome do Conjunto"></td>
+                                        <td width="300px" colspan="2">Filtro por Nome do Conjunto ou Bairro:<input type="text" id="referenciaCon" name="referenciaCon" placeholder="Nome do Conjunto"></td>
                                     <tr align="center"><td colspan="4"><button type="submit" class="botao-login">Consulta Conjuntos</button></td></tr>
                                 </form>
                             </tr>
@@ -81,6 +82,17 @@
     </div><br>
     <div class="popup"><!----------------ÁREA 3 - SIGI------------------------------------>
         <div><table><tr><td width="20px"></td>
+                    <td> <!--Cadastro de ruas por Conjunto no SIGI-->
+                        <table class="table table-dark" border="1">
+                            <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>
+                                <td align="center"><h3>Ruas por Conjunto no SIGI</h3></td>
+                                <form action="{{ url_for('ruasConjunto', referenciaConjRua=referenciaConjRua) }}">
+                                    <tr align="center">
+                                        <td width="120px" colspan="2">Filtro por Conjunto:<input type="text" id="referenciaConjRua" name="referenciaConjRua" placeholder="Nome do Conjunto"></td>
+                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Ruas</button></td></tr>
+                                </form></tr><tr></tr>
+                        </table>
+                    </td>
                     <td> <!--Cadastro de ruas no SIGI-->
                         <table class="table table-dark" border="1">
                             <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>

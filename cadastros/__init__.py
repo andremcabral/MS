@@ -24,7 +24,10 @@ parametros = (
     # Senha/Token.
     # 'PWD=sacehab23'
     )
-cursor = conecta(driver, server, banco)
+
+# cursorCL = conecta(driver, server, 'CL_Insc_Cehab')
+# cursorSIGI = conecta(driver, server, 'Dados_Sigi')
+
 url_db = quote_plus(parametros)
 # engine = create_engine(f"mssql+pyodbc://@{server}:{porta}/{banco}?driver=ODBC+Driver+17+for+SQL+Server")
 # eng = create_engine("mssql+pyodbc:///?odbc_connect=%s" % url_db)
@@ -34,6 +37,8 @@ url_db = quote_plus(parametros)
 #  BANCO SQL SERVER
 # app.config["SQLALCHEMY_DATABASE_URI"] = "mssql+pyodbc:///?odbc_connect=%s" % url_db
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mssql+pyodbc://@{server}:{porta}/{banco}?driver=ODBC+Driver+17+for+SQL+Server"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # EM TESTE
+
 #  USAR BANCO SQLITE
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cadastros"
 
