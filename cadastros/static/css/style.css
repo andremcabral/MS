@@ -369,3 +369,9 @@ footer{
     color: darkgray;
     padding: 1%;
 }
+
+.usuario {
+    color: darkgray;
+    font-size: 16px;
+    padding: 1%;
+}

@@ -8,33 +8,33 @@
 {% block body %}
 <body class="container">
     <p></p>
-    <h2>Ruas filtradas por nome do conjunto: {{ nomeConjunto }}</h2>
+    <h2>Ruas filtradas por conjunto: {{ codConjunto }} - {{ nomeConjunto }}</h2>
     <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
     <div class="table-responsive">
-        <h3>Lista de ruas por conjunto (ordenados por nome de rua)</h3>
+        <h3>Lista de ruas do conjunto (ordenados por nome de rua)</h3>
         <div class="text-right">
             <p> Quantidade de ruas: {{ qtd }}</p>
             <table class="table table-dark table-striped table-hover" border="5">
                 <tr>
-                    <th>Cód Conj</th>
-                    <th>Nome do Conjunto</th>
-                    <th>Bairro</th>
-                    <th>Município</th>
-                    <th>Cod. Rua</th>
-                    <th>Log.</th>
-                    <th>Nome da Rua</th>
-                    <th>Imóveis</th>
+<!--                    <th>Cód Conj</th>-->
+<!--                    <th>Nome do Conjunto</th>-->
+<!--                    <th>Bairro</th>-->
+<!--                    <th>Município</th>-->
+                    <th width="30">Cod. Rua</th>
+                    <th width="50">Log.</th>
+                    <th width="200">Nome da Rua</th>
+                    <th width="50">Imóveis</th>
                 </tr>
                 {% for rua in ruas: %}
                 <tr>
-                    <td>{{ rua[0] }}</td>
-                    <td>{{ rua[1] }}</td>
-                    <td>{{ rua[2] }}</td>
-                    <td>{{ rua[3] }}</td>
+<!--                    <td>{{ rua[0] }}</td>-->
+<!--                    <td>{{ rua[1] }}</td>-->
+<!--                    <td>{{ rua[2] }}</td>-->
+<!--                    <td>{{ rua[3] }}</td>-->
                     <td>{{ rua[4] }}</td>
                     <td>{{ rua[5] }}</td>
                     <td>{{ rua[6] }}</td>
-                    <td><a href="{{ url_for('imoveisRua', rua=rua[4], nomeRua=rua[6], conjunto=rua[0], nomeConjunto=rua[1])}} ">Imóveis</a></td>
+                    <td><a href="{{ url_for('imoveisRua', rua=rua[4], nomeRua=rua[6], codConjunto=codConjunto, nomeConjunto=nomeConjunto)}} ">Imóveis</a></td>
                 </tr>
                 {% endfor %}
             </table>

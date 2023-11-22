@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -14,135 +14,145 @@
 </head>
 <body>
     {% block body %}
-    <h1>ATENÇÃO: INFORMAÇÕES APENAS PARA SIMPLES CONSULTA, PODEM PRECISAR DE VALIDAÇÃO</h1>
-        <div class="popup"><!------------ÁREA 1 - IPTU------------------------------------>
-            <div>
-                <table class="table table-dark" border="1">
-                    <tr>
-                        <td> <!--IPTU-->
-                            <table class="table table-dark" border="0">
-                                <tr>
-                                    <td align="center" colspan="7"><h3>Inscrição Predial (Site da prefeitura):</h3></td>
-                                    <td width="150px"><img src="static/img/logo_iptu.png"/></td>
-                                </tr>
-                                <tr>
-                                    <form action="{{ url_for('imoveis', referenciaDados=referenciaDados, referenciaInsc=referenciaInsc, referenciaNum=referenciaNum, referenciaBairro=referenciaBairro, entrada=entrada) }}">
-                                        <tr align="center"></tr>
-                                        <tr align="center">
-                                            <td>Filtro por Inscrição:<input type="text" id="referenciaInsc" name="referenciaInsc" placeholder="Buscar na inscrição"></td>
-                                            <td><br></br>OU</td>
-                                            <td width="300px">Filtro por Dados:<input type="text" id="referenciaDados" name="referenciaDados" placeholder="Buscar nos dados do imóvel"></td>
-                                            <td><br><input type="checkbox" name="E_Num" value="E">E</td>
-                                            <td width="180px">Filtro por Número:<input type="text" id="referenciaNum" name="referenciaNum" placeholder="Número"></td>
-                                            <td><br><input type="checkbox" name="E_Bairro" value="E">E</td>
-                                            <td width="150px">Filtro por Bairro:<input type="text" id="referenciaBairro" name="referenciaBairro" placeholder="Bairro"></td>
-                                            <td><br><button type="submit" class="botao-login">Consulta</button></td>
-                                        </tr>
-                                    </form>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                </table>
-            </div>
-        </div><br>
-
+    <h4>
+        <table width="95%" align="center" class="usuario">
+            <tr>
+                <td width="15%" align="right">{{ status }}: "{{ nome }}" > "{{ localAcesso }}</td>
+                <td width="70%" align="center"><h1>APENAS PARA SIMPLES CONSULTA, PODEM PRECISAR DE VALIDAÇÃO</h1></td>
+                <td width="15%" align="right">AndreMC</td>
+            </tr>
+        </table>
+    </h4>
+    {% if categoria == "admin": %}
+    <div class="popup"><!------------ÁREA 1 - IPTU------------------------------------>
+        <div>
+            <table class="table table-dark" border="1">
+                <tr>
+                    <td> <!--IPTU-->
+                        <table class="table table-dark" border="0">
+                            <tr>
+                                <td align="center" colspan="7"><h3>Inscrição Predial (Site da prefeitura):</h3></td>
+                                <td width="150px"><img src="static/img/logo_iptu.png"/></td>
+                            </tr>
+                            <tr>
+                                <form action="{{ url_for('imoveis', referenciaDados=referenciaDados, referenciaInsc=referenciaInsc, referenciaNum=referenciaNum, referenciaBairro=referenciaBairro, entrada=entrada) }}">
+                                    <tr align="center"></tr>
+                                    <tr align="center">
+                                        <td>Filtro por Inscrição:<input type="text" id="referenciaInsc" name="referenciaInsc" placeholder="Buscar na inscrição"></td>
+                                        <td><br></br>OU</td>
+                                        <td width="300px">Filtro por Dados:<input type="text" id="referenciaDados" name="referenciaDados" placeholder="Buscar nos dados do imóvel"></td>
+                                        <td><br><input type="checkbox" name="E_Num" value="E">E</td>
+                                        <td width="180px">Filtro por Número:<input type="text" id="referenciaNum" name="referenciaNum" placeholder="Número"></td>
+                                        <td><br><input type="checkbox" name="E_Bairro" value="E">E</td>
+                                        <td width="150px">Filtro por Bairro:<input type="text" id="referenciaBairro" name="referenciaBairro" placeholder="Bairro"></td>
+                                        <td><br><button type="submit" class="botao-login">Consulta</button></td>
+                                    </tr>
+                                </form>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+    </div>{% endif %}<br>
     <div class="popup"><!----------------ÁREA 2 - SIGI E PLANILHAS------------------------>
-        <div><table><tr>
-                    <td> <!--Cadastro de conjuntos-->
+        <div>
+            <table>
+                <tr>
+                    <td width="100px"><img src="static/img/cehab_azul.png"/></td>
+                    <td colspan="2" align="center"><h3>(SIGI + Planilhas)</h3></td>
+                    <td width="80px"><img src="static/img/excel.png"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4"> <!--Cadastro de conjuntos-->
                         <table class="table table-dark" border="1">
-                            <tr>
-                                <td width="120px"><img src="static/img/cehab_azul.png"/></td><td align="center" colspan="2"><h3>Cadastro de conjuntos:<br>(SIGI + Planilhas)</h3></td><td width="80px"><img src="static/img/excel.png"/></td>
-                                <form action="{{ url_for('listaConjuntos', referenciaCod=referenciaCod, referenciaCon=referenciaCon) }}">
-                                    <tr align="center">
-                                        <td width="120px">Cód. Conjunto:<input type="text" id="referenciaCod" name="referenciaCod" placeholder="Código"></td>
-                                        <td width="10px">OU</td>
-                                        <td width="300px" colspan="2">Filtro por Nome do Conjunto ou Bairro:<input type="text" id="referenciaCon" name="referenciaCon" placeholder="Nome do Conjunto"></td>
-                                    <tr align="center"><td colspan="4"><button type="submit" class="botao-login">Consulta Conjuntos</button></td></tr>
-                                </form>
-                            </tr>
+                            <form action="{{ url_for('listaConjuntos', referenciaCod=referenciaCod, referenciaCon=referenciaCon, pagina=1) }}">
+                                <tr align="center">
+                                    <td width="120px"><input type="text" id="referenciaCod" name="referenciaCod" placeholder="Cód Cj"></td>
+                                    <td width="10px">OU</td>
+                                    <td width="300px" colspan="2"><input type="text" id="referenciaCon" name="referenciaCon" placeholder="Nome do Conjunto ou Bairro"></td>
+                                    <td colspan="4"><button type="submit" class="botao-login">Consulta Conjuntos</button></td>
+                                </tr>
+                            </form>
                             <tr></tr>
                         </table>
                     </td>
-                    <td> <!--Conjuntos por Bairro-->
-                        <table class="table table-dark" border="1">
-                            <tr>
-                                <td width="120px"><img src="static/img/cehab_azul.png"/></td><td align="center"><h3>Conjuntos por Bairro:<br>(SIGI + Planilhas)</h3></td><td width="80px"><img src="static/img/excel.png"/></td>
-                                <form action="{{ url_for('bairro', bairro=bairro) }}">
-                                    <tr align="center">
-                                        <td colspan="3">Filtro por Nome do Bairro:<input type="text" id="bairro" name="bairro" placeholder="Nome do Bairro"></td>
-                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Bairro</button></td></tr>
-                                </form>
-                            </tr>
-                            <tr></tr>
-                        </table>
-                    </td>
-                </tr></table></div>
+                </tr>
+            </table>
+        </div>
     </div><br>
+    {% if categoria == "admin": %}
     <div class="popup"><!----------------ÁREA 3 - SIGI------------------------------------>
-        <div><table><tr><td width="20px"></td>
-                    <td> <!--Cadastro de ruas por Conjunto no SIGI-->
+        <div>
+            <table>
+                <tr>
+                    <td width="100px"><img src="static/img/cehab_azul.png"/></td>
+                    <td colspan="3" align="center"><h3>Cadastro no SIGI</h3></td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <!--Cadastro de ruas no SIGI-->
                         <table class="table table-dark" border="1">
-                            <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>
-                                <td align="center"><h3>Ruas por Conjunto no SIGI</h3></td>
-                                <form action="{{ url_for('ruasConjunto', referenciaConjRua=referenciaConjRua) }}">
-                                    <tr align="center">
-                                        <td width="120px" colspan="2">Filtro por Conjunto:<input type="text" id="referenciaConjRua" name="referenciaConjRua" placeholder="Nome do Conjunto"></td>
-                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Ruas</button></td></tr>
-                                </form></tr><tr></tr>
-                        </table>
-                    </td>
-                    <td> <!--Cadastro de ruas no SIGI-->
-                        <table class="table table-dark" border="1">
-                            <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>
-                                <td align="center"><h3>Cadastro de ruas no SIGI</h3></td>
+                            <tr>
                                 <form action="{{ url_for('ruasGeral', referenciaNomeRua=referenciaNomeRua) }}">
                                     <tr align="center">
-                                        <td width="120px" colspan="2">Filtro por Nome de Rua:<input type="text" id="referenciaNomeRua" name="referenciaNomeRua" placeholder="Nome da Rua"></td>
-                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Ruas</button></td></tr>
-                                </form></tr><tr></tr>
+                                        <td width="250px"><input type="text" id="referenciaNomeRua" name="referenciaNomeRua" placeholder="Nome da Rua"></td>
+                                        <td><button type="submit" class="botao-login">Consulta Ruas</button></td>
+                                    </tr>
+                                </form>
+                            </tr>
+                            <tr></tr>
                         </table>
                     </td>
                     <td> <!--Consulta por Imobiliário no SIGI-->
                         <table class="table table-dark" border="1">
-                            <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>
-                                <td align="center"><h3>Consulta por Imobiliário no SIGI</h3></td>
+                            <tr>
+<!--                                    <td width="120px"><img src="static/img/cehab_azul.png"/></td>-->
+<!--                                    <td align="center"><h3>Consulta por Imobiliário no SIGI</h3></td>-->
                                 <form action="{{ url_for('imob', conj=conj, imob=imob) }}">
                                     <tr align="center">
-                                        <td width="120px">Cód. Conj.:<input type="text" id="conj" name="conj" placeholder="Código"></td>
-                                        <td width="250px">Filtro por Imobiliário:<input type="text" id="imob" name="imob" placeholder="Imobiliário"></td>
-                                    <tr align="center"><td colspan="3"><button type="submit" class="botao-login">Consulta Imobiliário</button></td></tr>
-                                </form></tr><tr></tr>
+                                        <td width="120px"><input type="text" id="conj" name="conj" placeholder="Cód. Cj"></td>
+                                        <td width="150px"><input type="text" id="imob" name="imob" placeholder="Imobiliário"></td>
+                                        <td colspan="3"><button type="submit" class="botao-login">Consulta Imobiliário</button></td>
+                                    </tr>
+                                </form>
+                            </tr>
+                            <tr></tr>
                         </table>
                     </td>
                     <td> <!--Consulta de imóveis por mutuário no SIGI-->
                         <table class="table table-dark" border="1">
-                            <tr><td width="120px"><img src="static/img/cehab_azul.png"/></td>
-                                <td align="center"><h3>Consulta de imóveis por mutuário no SIGI</h3></td>
+                            <tr>
+<!--                                    <td width="120px"><img src="static/img/cehab_azul.png"/></td>-->
+<!--                                    <td align="center"><h3>Consulta de imóveis por mutuário no SIGI</h3></td>-->
                                 <form action="{{ url_for('imoveisMutuario') }}">
                                     <tr align="center">
-                                        <td colspan="2">Filtro por Nome do Mutuário:<input type="text" id="imoveisMutuario" name="imoveisMutuario" placeholder="Nome do Mutuario"></td>
-                                    <tr align="center"><td colspan="2"><button type="submit" class="botao-login">Consulta Mutuário</button></td></tr>
-                                </form></tr><tr></tr>
+                                        <td colspan="2"><input type="text" id="imoveisMutuario" name="imoveisMutuario" placeholder="Nome do Mutuário"></td>
+                                        <td colspan="2"><button type="submit" class="botao-login">Consulta Mutuário</button></td>
+                                    </tr>
+                                </form>
+                            </tr><tr></tr>
                         </table>
-                    </td></tr>
+                    </td>
+<!--                    </td>-->
+                </tr>
             </table></div>
-    </div><br>
-    <div class="popup"><!---------------ÁREA 4 - RESUMO---------------------------------->
+    </div>{% endif %}<br>
+    {% if categoria == "admin": %}
+    <div class="popup"><!----------------ÁREA 4 - RESUMO---------------------------------->
         <div>
             <table><tr><td width="20px"></td>
                     <td><!--Mesclagem SIGI x Prefeitura-->
                       <table class="table table-dark" border="1">
-                            <tr><td align="center" width="120px"><img src="static/img/cehab_azul.png"/></td>
-                                <td align="center" colspan="2"><h3>Mesclagem SIGI x Prefeitura<br>(Em testes):</h3></td>
+                            <tr><td align="center" width="100px"><img src="static/img/cehab_azul.png"/></td>
+                                <td align="center" colspan="3"><h3>Mesclagem SIGI x Prefeitura<br>(Em testes):</h3></td>
                                 <td align="center" width="150px"><img src="static/img/logo_iptu.png"/></td>
                                 <form action="{{ url_for('resumo', referenciaCodCJ=referenciaCodCJ, referenciaRua=referenciaRua) }}">
                                     <tr align="center">
-                                        <td width="120px">Cód. Conjunto:<input type="text" id="referenciaCodCJ" name="referenciaCodCJ" placeholder="Código"></td>
-                                        <td width="1">OU</td>
-                                        <td width="350px" colspan="2">Filtro por Rua:<input type="text" id="referenciaRua" name="referenciaRua" placeholder="Buscar por Nome da Rua"></td></tr>
-                                    <tr align="center"><td colspan="4"><button type="submit" class="botao-login">Sigi X IPTU</button></td></tr>
+                                        <td width="120px"><input type="text" id="referenciaCodCJ" name="referenciaCodCJ" placeholder="Cód. Cj"></td>
+                                        <td width="1">E</td>
+                                        <td width="350px" colspan="2"><input type="text" id="referenciaRua" name="referenciaRua" placeholder="Buscar por Nome da Rua"></td>
+                                        <td colspan="4"><button type="submit" class="botao-login">Sigi X IPTU</button></td></tr>
                                 </form>
                             </tr>
                           <tr></tr>
@@ -150,10 +160,30 @@
                     </td></tr>
             </table>
         </div>
+    </div>{% endif %}<br>
+    <div class="popup"><!----------------ÁREA 5 - CPF---------------------------------->
+        <div>
+            <table class="table table-dark" border="0">
+                <tr><td align="center" colspan="4"><h3>Consulta dígito verificador de CPF:</h3></td>
+                    <form action="{{ url_for('cpf', cpf=cpf, verNome=verNome) }}">
+                        <tr align="center">
+                            <td width="220px"><input type="text" id="cpf" name="cpf" placeholder="Apenas números"></td>
+                            <td><input type="checkbox" name="verNome" value="sim">Consulta nome e situação?</td>
+                            <td><input type="checkbox" name="gerar" value="gerar">Gera número aleatório?</td>
+                            <td colspan="4"><button type="submit" class="botao-login">Verifica CPF</button></td>
+                        </tr>
+                    </form>
+                </tr>
+            </table>
+        </div>
     </div>
     {% endblock %}
 </body>
+
 <footer>
-    <div align="right">{{ status }}: "{{ nome }}" em "{{ localAcesso }}"<br>AndreMC</div>
+<!--    <table width="97%" align="center"><tr>-->
+<!--        <td>{{ status }}: "{{ nome }}" em "{{ localAcesso }}</td>-->
+<!--        <td align="right">AndreMC</td></tr></table>-->
 </footer>
+
 </html>

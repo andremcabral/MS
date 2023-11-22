@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>
+        Cadastros
+    </title>
+</head>
+<body>
+    <p></p>
+
+    {% block body %}
+    <div class="popup">
+
+        <div class="container">
+            <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+            <table class="table table-dark" border="0">
+                <tr>
+                    <td align="center" colspan="7"><h3>RESULTADO DA CONSULTA DE CPF:</h3></td>
+                </tr>
+                <tr>
+                    <td>CPF:</td><td width="200"><input value="{{ cpf }}" disabled></td>
+                    <td>Nome:</td><td width="450"><input value="{{ verNome[0] }}" disabled></td>
+                </tr>
+                <tr>
+                    <td>UF:</td><td width="600"><input value="{{ uf }}" disabled></td>
+                    <td>Situação:</td><td width="450"><input value="{{ verNome[1] }}" disabled></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>
