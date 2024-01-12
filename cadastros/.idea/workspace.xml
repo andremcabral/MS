@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="12ac0aec-e887-43e1-8b37-2787ab83f052" name="Changes" comment="" />
+    <list default="true" id="12ac0aec-e887-43e1-8b37-2787ab83f052" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/sigi/consultaGeral.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sigi/detalhesImovel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sigi/detalhesImovel.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sigi/imoveisMutuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sigi/imoveisMutuario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/sigi/imoveisRua.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/sigi/imoveisRua.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2Wu4JOKc309WbQ2Dl8bPbM0gmg2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -19,6 +32,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/ANDRE/codigos/iptu_CEHAB_flask/cadastros"
   }
 }]]></component>

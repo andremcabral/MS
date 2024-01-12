@@ -1,9 +1,8 @@
 import time
-
 from flask import render_template, request
-from cadastros import app
-from cadastros.models import *
-from instance.trataBanco import conecta
+from iptu_CEHAB_flask.cadastros import app
+from iptu_CEHAB_flask.cadastros.models import *
+from iptu_CEHAB_flask.instance.trataBanco import conecta
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -52,16 +51,17 @@ def consulta():
 def homepage():
     global localAcesso, usuarioAtual, status, nome
     usuarioAtual = os.getlogin()
-    # usuarioAtual = f"{os.getenv('USERNAME')} {os.getenv('USERNAME')}"
+    testeUsuario = f"{os.getenv('USERNAME')} {os.getlogin()}"
     localAcesso = os.getenv('COMPUTERNAME')
     cadUsuario = cursorCL.execute(f"select * from Usuarios where usuario = '{usuarioAtual}'").fetchall()
     if len(cadUsuario)==0:
+        status = "Novo"
         return render_template("usuario.html", usuario=usuarioAtual, localAcesso=localAcesso)
     else:
         nome = cadUsuario[0][1]
         categoria = cadUsuario[0][2]
         status="Retornando"
-        return render_template("index.html", usuario=usuarioAtual, localAcesso=localAcesso, status=status, nome=nome, categoria=categoria)
+        return render_template("index.html", usuario=usuarioAtual, localAcesso=localAcesso, status=status, nome=nome, categoria=categoria, testeUsuario=testeUsuario)
 
 #  /////////////////////////// USUÁRIOS ///////////////////////////////////////////////////
 @app.route("/<usuario>,<localAcesso>")
@@ -144,7 +144,8 @@ def imoveis():
                 qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI").fetchall())
                 num_paginas = int(qtdTotal / linhas) + 2
             else:
-                imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where rua<>'-' order by bairro, rua").fetchall()
+                imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where rua <> '-' order by bairro, rua").fetchall()
+                imoveisTodos = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where rua <> '-' order by bairro, rua").fetchall()
                 # imoveis = cursorCL.execute(f"select * from {tabelaIPTU} order by inscricao OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
                 qtdEncontrada = len(imoveis)
                 qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU}").fetchall())
@@ -233,6 +234,7 @@ def imoveisRua(codConjunto, nomeConjunto, rua, nomeRua):
 # OK BUSCA DE RUAS
 def ruasGeral():
     nomeRua = request.args.get('referenciaNomeRua')
+    print(nomeRua)
     pagina = int(request.args.get('page', 1))
     linhas = 500
     offset = (pagina - 1) * linhas
@@ -240,8 +242,12 @@ def ruasGeral():
     ruas = cursorSIGI.execute(f"select top {linhas} * from dbo.Ruas_Conjunto where NomeRua like '%{nomeRua}%' collate Latin1_General_CI_AI order by NomeRua").fetchall()
     qtd = cursorSIGI.execute(f"select * from dbo.Ruas_Conjunto where NomeRua like '%{nomeRua}%' collate Latin1_General_CI_AI order by NomeRua").fetchall()
     print(ruas)
-    nomeConjunto = ruas[0][1]
-    codConjunto = ruas[0][0]
+    if len(ruas) > 0:
+        nomeConjunto = ruas[0][1]
+        codConjunto = ruas[0][0]
+    else:
+        nomeConjunto = ""
+        codConjunto = ""
     exibidas=len(ruas)
     qtd=len(qtd)
     num_paginas = int(qtd / linhas) + 2
@@ -276,6 +282,44 @@ def imoveisMutuario():
     num_paginas = int(qtd / linhas) + 2
     return render_template("sigi/imoveisMutuario.html", imoveis=imoveis, qtd=qtd, qtdTotal=qtdEncontrada, imoveisMutuario=imoveisMutuario, localAcesso=localAcesso, status=status, nome=nome, num_paginas=num_paginas, pagina=pagina)
 
+@app.route("/consultaGeral")
+def consultaSigiGeral():
+    consultaCodCj = request.args.get('consultaCodCj')
+    consultaNomeCj = request.args.get('consultaNomeCj')
+    consultaNomeMut = request.args.get('consultaNomeMut')
+    consultaNomeRua = request.args.get('consultaNomeRua')
+    consultaNum = request.args.get('consultaNum')
+    consultaImob = request.args.get('consultaImob')
+    imoveis = cursorSIGI.execute(f"select top {linhas} * from Dados_Imovel_Morador where"
+                                    f" CodConjunto like '%{consultaCodCj}%' and"
+                                    f" NomeConjunto like '%{consultaNomeCj}%' collate Latin1_General_CI_AI and"
+                                    f" NomeMorador like '%{consultaNomeMut}%' collate Latin1_General_CI_AI and"
+                                    f" NomeRua like '%{consultaNomeRua}%' collate Latin1_General_CI_AI and"
+                                    f" Numero like '%{consultaNum}%' and"
+                                    f" CodImovel like '%{consultaImob}%'"
+                                    f" order by NomeConjunto, NomeRua, Numero").fetchall()
+    qtd = cursorSIGI.execute(f"select * from Dados_Imovel_Morador where"
+                                    f" CodConjunto like '%{consultaCodCj}%' and"
+                                    f" NomeConjunto like '%{consultaNomeCj}%' collate Latin1_General_CI_AI and"
+                                    f" NomeMorador like '%{consultaNomeMut}%' collate Latin1_General_CI_AI and"
+                                    f" NomeRua like '%{consultaNomeRua}%' collate Latin1_General_CI_AI and"
+                                    f" Numero like '%{consultaNum}%' and"
+                                    f" CodImovel like '%{consultaImob}%'"
+                                    f" order by NomeConjunto, NomeRua, Numero").fetchall()
+    qtdExibida = len(imoveis)
+    qtd = len(qtd)
+    return render_template("sigi/consultaGeral.html", imoveis=imoveis, qtdExibida=qtdExibida, qtdTotal=qtd, consultaCodCj=consultaCodCj, consultaNomeCj=consultaNomeCj, consultaNomeMut=consultaNomeMut,consultaNomeRua=consultaNomeRua,consultaNum=consultaNum, consultaImob=consultaImob, localAcesso=localAcesso, status=status, nome=nome)
+
+@app.route("/ficha/<cj>/<imb>")
+def ficha(cj,imb):
+    ficha=cj + imb + '.pdf'
+    return render_template("sigi/ficha.html", ficha=ficha)
+@app.route("/dossie/<cj>/<imb>")
+def dossie(cj,imb):
+    dossie=cj + imb + '.pdf'
+    return render_template("sigi/dossie.html", dossie=dossie)
+
+
 #  /////////////////////////// ÁREA 4 - RESUMO ////////////////////////////////////
 @app.route("/resumo") # Mesclagem SIGI x Prefeitura
 def resumo():
@@ -289,9 +333,9 @@ def resumo():
     #     # resumo = cursorCL.execute(f"select * from dbo.resumo where codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, ruaPLANILHA OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
     #     qtd = cursorCL.execute(f"select * from dbo.resumo where codConjunto like '%{referenciaCodCJ}%'").fetchall()
     # else:
-    resumo = cursorCL.execute(f"select top {linhas} * from dbo.resumo where RuaPLANILHA like '%{referenciaRua}%' collate Latin1_General_CI_AI and codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, ruaPLANILHA").fetchall()
+    resumo = cursorCL.execute(f"select top {linhas} * from dbo.Junta_IPTU_DADOS_SIGI where rua like '%{referenciaRua}%' collate Latin1_General_CI_AI and codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, rua").fetchall()
     # resumo = cursorCL.execute(f"select * from dbo.resumo where RuaPLANILHA like '%{referenciaRua}%' order by NomeConjunto, ruaPLANILHA OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
-    qtd = cursorCL.execute(f"select * from dbo.resumo where RuaPLANILHA like '%{referenciaRua}%' collate Latin1_General_CI_AI").fetchall()
+    qtd = cursorCL.execute(f"select * from dbo.Junta_IPTU_DADOS_SIGI where rua like '%{referenciaRua}%' collate Latin1_General_CI_AI").fetchall()
     # conjuntos = cursor.execute(f"select * from dbo.resumo where NomeConjunto like '%{referencia}%' order by NomeConjunto").fetchall()
     qtdEncontrada = len(resumo)
     qtd = len(qtd)
@@ -318,9 +362,10 @@ def detalhesImovel(codConjunto,codImob):
 def cpf():
     from random import randint
     verNome=request.args.get('verNome')
-    cpf=request.args.get('cpf')
+    cpf=request.args.get('cpf')[0:9]
     gerar=request.args.get('gerar')
-    if gerar:
+    # if gerar:
+    if (len(cpf)==0):
         a = randint(0, 9)
         b = randint(0, 9)
         c = randint(0, 9)

@@ -10,12 +10,18 @@
     <p></p>
     <div class="popup">
         <div class="container50">
-            Entrada: {{ entrada }}
             <a href="{{ url_for('consultaConjuntos') if entrada=='inicial' else url_for('homepage') }} "class="botao-login">Início</a>
+            <table width="100%" cellpadding="10">
+                <tr width="100%">
+                    <td align="right"><a href="{{ url_for('ficha', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Ficha</a></td>
+                    <td><a href="{{ url_for('dossie', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Dossiê</a></td>
+                </tr>
+            </table>
             <h2>Detalhes do Imóvel</h2>
             <li>Conjunto:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][0] }} - {{ imovel[0][1] }}</li>
             <li>Município:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][2] }}</li>
             <li>Bairro:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][3] }}</li>
+            <li>Cód Rua:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][16] }}</li>
             <li>Rua:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][5] }}</li>
             <li>Código Imobiliário:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][6] }}</li>
             <li>Número:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][7] }}</li>
@@ -27,6 +33,9 @@
             <li>CADMUT:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][15] }}</li>
             <li>Morador:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][13] }}</li>
             <li>CPF:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][14] }}</li>
+            <li>Cartório:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][17] }}</li>
+            <li>Livro:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][18] }}</li>
+            <li>Folha:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][19] }}</li>
             <p></p>
         </div>
     </div>

@@ -1,9 +1,10 @@
 # import urllib.parse, pyodbc, os
 # import sqlalchemy.dialects.mssql.pyodbc
 # from sqlalchemy import create_engine
+# pip install Flask-SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from instance.trataBanco import conecta
+from iptu_CEHAB_flask.instance.trataBanco import conecta
 from urllib.parse import quote_plus
 
 # cria o aplicativo usando o nome informado no código
@@ -46,4 +47,4 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # EM TESTE
 db = SQLAlchemy(app)
 
 # importa o arquivo de rotas (no final do código)
-from cadastros import routes
+from iptu_CEHAB_flask.cadastros import routes

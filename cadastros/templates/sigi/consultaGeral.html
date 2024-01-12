@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+<title>
+    {% block titulo %}
+    Lista de Imóveis
+    {% endblock %}
+</title>
+</head>
+{% block body %}
+<body class="containerCheio">
+    <h3>Consulta geral de imóveis filtrados por:<br>
+        </h3>
+        <table class="container" border="1" draggable="true">
+            <tr>
+                <td width="10%" align="center">Cód. do Conjunto:</td>
+                <td width="24%" align="center">Nome do Conjunto:</td>
+                <td width="25%" align="center">Nome do Mutuário:</td>
+                <td width="18%" align="center">Nome da Rua:</td>
+                <td width="10%" align="center">Número de porta:</td>
+                <td width="10%" align="center">Cód. Imobiliário:</td>
+            </tr>
+            <tr>
+                <td width="12%" align="center">{{consultaCodCj}}</td>
+                <td width="24%" align="center">{{consultaNomeCj}}</td>
+                <td width="25%" align="center">{{consultaNomeMut}}</td>
+                <td width="15%" align="center">{{consultaNomeRua}}</td>
+                <td width="12%" align="center">{{consultaNum}}</td>
+                <td width="12%" align="center">{{consultaImob}}</td>
+            </tr>
+        </table>
+
+    <a href="{{ url_for('homepage') }} "class="botao-login">Início</a>
+<!--    <div class="table-responsive">-->
+    <div>
+        <div class="text-right">
+            <p> Quantidade de registros encontrados: {{ qtdTotal }}</p>
+            <p> Quantidade de registros exibidos: {{ qtdExibida }}</p>
+            <table class="table table-dark table-striped table-hover" border="5">
+                <tr>
+                    <th>Conjunto</th>
+                    <th>Município</th>
+                    <th>Bairro</th>
+                    <th>Log</th>
+                    <th>Rua</th>
+                    <th>Imob</th>
+                    <th>Núm</th>
+                    <th>Apt</th>
+                    <th>Blc</th>
+                    <th>Comp</th>
+                    <th>Morador</th>
+                </tr>
+                {% for imovel in imoveis: %}
+                <tr>
+                    <td>{{ imovel[0] }} - {{ imovel[1] }}</td>
+                    <td>{{ imovel[2] }}</td>
+                    <td>{{ imovel[3] }}</td>
+                    <td>{{ imovel[4] }}</td>
+                    <td>{{ imovel[5] }}</td>
+                    <td>{{ imovel[6] }}</td>
+                    <td>{{ imovel[7] }}</td>
+                    <td>{{ imovel[8] }}</td>
+                    <td>{{ imovel[9] }}</td>
+                    <td>{{ imovel[10] }}</td>
+                    <td>{{ imovel[13] }}</td>
+                    <td><a href="{{ url_for('detalhesImovel', codConjunto=imovel[0], codImob=imovel[6])}} ">Detalhes</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>

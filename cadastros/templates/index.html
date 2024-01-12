@@ -26,7 +26,7 @@
     {% if categoria == "admin": %}
     <div class="popup"><!------------ÁREA 1 - IPTU------------------------------------>
         <div>
-            <table class="table table-dark" border="1">
+            <table class="table table-dark" border="0">
                 <tr>
                     <td> <!--IPTU-->
                         <table class="table table-dark" border="0">
@@ -58,6 +58,7 @@
     </div>{% endif %}<br>
     <div class="popup"><!----------------ÁREA 2 - SIGI E PLANILHAS------------------------>
         <div>
+            <!--    >>> {{ testeUsuario }} <<<-->
             <table>
                 <tr>
                     <td width="100px"><img src="static/img/cehab_azul.png"/></td>
@@ -66,7 +67,7 @@
                 </tr>
                 <tr>
                     <td colspan="4"> <!--Cadastro de conjuntos-->
-                        <table class="table table-dark" border="1">
+                        <table class="table table-dark" border="0">
                             <form action="{{ url_for('listaConjuntos', referenciaCod=referenciaCod, referenciaCon=referenciaCon, pagina=1) }}">
                                 <tr align="center">
                                     <td width="120px"><input type="text" id="referenciaCod" name="referenciaCod" placeholder="Cód Cj"></td>
@@ -83,52 +84,26 @@
         </div>
     </div><br>
     {% if categoria == "admin": %}
-    <div class="popup"><!----------------ÁREA 3 - SIGI------------------------------------>
+    <div align="center" class="popup"><!----------------ÁREA 3 - SIGI------------------------------------>
         <div>
             <table>
                 <tr>
                     <td width="100px"><img src="static/img/cehab_azul.png"/></td>
-                    <td colspan="3" align="center"><h3>Cadastro no SIGI</h3></td>
+                    <td colspan="3" align="center"><h3>Consulta Geral - SIGI</h3></td>
                 </tr>
                 <tr>
                     <td colspan="2"> <!--Cadastro de ruas no SIGI-->
-                        <table class="table table-dark" border="1">
+                        <table class="table table-dark" border="0">
                             <tr>
-                                <form action="{{ url_for('ruasGeral', referenciaNomeRua=referenciaNomeRua) }}">
+                                <form action="{{ url_for('consultaSigiGeral') }}">
                                     <tr align="center">
-                                        <td width="250px"><input type="text" id="referenciaNomeRua" name="referenciaNomeRua" placeholder="Nome da Rua"></td>
-                                        <td><button type="submit" class="botao-login">Consulta Ruas</button></td>
-                                    </tr>
-                                </form>
-                            </tr>
-                            <tr></tr>
-                        </table>
-                    </td>
-                    <td> <!--Consulta por Imobiliário no SIGI-->
-                        <table class="table table-dark" border="1">
-                            <tr>
-<!--                                    <td width="120px"><img src="static/img/cehab_azul.png"/></td>-->
-<!--                                    <td align="center"><h3>Consulta por Imobiliário no SIGI</h3></td>-->
-                                <form action="{{ url_for('imob', conj=conj, imob=imob) }}">
-                                    <tr align="center">
-                                        <td width="120px"><input type="text" id="conj" name="conj" placeholder="Cód. Cj"></td>
-                                        <td width="150px"><input type="text" id="imob" name="imob" placeholder="Imobiliário"></td>
-                                        <td colspan="3"><button type="submit" class="botao-login">Consulta Imobiliário</button></td>
-                                    </tr>
-                                </form>
-                            </tr>
-                            <tr></tr>
-                        </table>
-                    </td>
-                    <td> <!--Consulta de imóveis por mutuário no SIGI-->
-                        <table class="table table-dark" border="1">
-                            <tr>
-<!--                                    <td width="120px"><img src="static/img/cehab_azul.png"/></td>-->
-<!--                                    <td align="center"><h3>Consulta de imóveis por mutuário no SIGI</h3></td>-->
-                                <form action="{{ url_for('imoveisMutuario') }}">
-                                    <tr align="center">
-                                        <td colspan="2"><input type="text" id="imoveisMutuario" name="imoveisMutuario" placeholder="Nome do Mutuário"></td>
-                                        <td colspan="2"><button type="submit" class="botao-login">Consulta Mutuário</button></td>
+                                        <td><input type="text" id="consultaCodCj" name="consultaCodCj" placeholder="Cód. Conjunto"></td>
+                                        <td><input type="text" id="consultaNomeCj" name="consultaNomeCj" placeholder="Nome do Conjunto"></td>
+                                        <td><input type="text" id="consultaNomeMut" name="consultaNomeMut" placeholder="Nome do Mutuário"></td>
+                                        <td><input type="text" id="consultaNomeRua" name="consultaNomeRua" placeholder="Nome da rua"></td>
+                                        <td><input type="text" id="consultaNum" name="consultaNum" placeholder="Número"></td>
+                                        <td><input type="text" id="consultaImob" name="consultaImob" placeholder="Imob"></td>
+                                        <td><button type="submit" class="botao-login">Consulta SIGI</button></td>
                                     </tr>
                                 </form>
                             </tr><tr></tr>
@@ -136,14 +111,15 @@
                     </td>
 <!--                    </td>-->
                 </tr>
-            </table></div>
+            </table>
+        </div>
     </div>{% endif %}<br>
     {% if categoria == "admin": %}
     <div class="popup"><!----------------ÁREA 4 - RESUMO---------------------------------->
         <div>
             <table><tr><td width="20px"></td>
                     <td><!--Mesclagem SIGI x Prefeitura-->
-                      <table class="table table-dark" border="1">
+                      <table class="table table-dark" border="0">
                             <tr><td align="center" width="100px"><img src="static/img/cehab_azul.png"/></td>
                                 <td align="center" colspan="3"><h3>Mesclagem SIGI x Prefeitura<br>(Em testes):</h3></td>
                                 <td align="center" width="150px"><img src="static/img/logo_iptu.png"/></td>
@@ -164,13 +140,16 @@
     <div class="popup"><!----------------ÁREA 5 - CPF---------------------------------->
         <div>
             <table class="table table-dark" border="0">
-                <tr><td align="center" colspan="4"><h3>Consulta dígito verificador de CPF:</h3></td>
+                <tr>
+                    <td width="100px"><img src="static/img/cpf.png"/></td>
+                    <td align="center" colspan="1"><h3>Consulta dígito verificador de CPF:</h3></td></tr>
+                <tr>
                     <form action="{{ url_for('cpf', cpf=cpf, verNome=verNome) }}">
                         <tr align="center">
                             <td width="220px"><input type="text" id="cpf" name="cpf" placeholder="Apenas números"></td>
                             <td><input type="checkbox" name="verNome" value="sim">Consulta nome e situação?</td>
-                            <td><input type="checkbox" name="gerar" value="gerar">Gera número aleatório?</td>
-                            <td colspan="4"><button type="submit" class="botao-login">Verifica CPF</button></td>
+<!--                            <td><input type="checkbox" name="gerar" value="gerar">Gera número aleatório?</td>-->
+                            <td colspan="1"><button type="submit" class="botao-login">Verifica CPF</button></td>
                         </tr>
                     </form>
                 </tr>
@@ -187,3 +166,51 @@
 </footer>
 
 </html>
+
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td width="100px"><img src="static/img/cehab_azul.png"/></td>-->
+<!--                    <td colspan="3" align="center"><h3>Cadastro no SIGI</h3></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td colspan="2"> &lt;!&ndash;Cadastro de ruas no SIGI&ndash;&gt;-->
+<!--                        <table class="table table-dark" border="1">-->
+<!--                            <tr>-->
+<!--                                <form action="{{ url_for('ruasGeral', referenciaNomeRua=referenciaNomeRua) }}">-->
+<!--                                    <tr align="center">-->
+<!--                                        <td width="250px"><input type="text" id="referenciaNomeRua" name="referenciaNomeRua" placeholder="Nome da Rua"></td>-->
+<!--                                        <td><button type="submit" class="botao-login">Consulta Ruas</button></td>-->
+<!--                                    </tr>-->
+<!--                                </form>-->
+<!--                            </tr>-->
+<!--                            <tr></tr>-->
+<!--                        </table>-->
+<!--                    </td>-->
+<!--                    <td> &lt;!&ndash;Consulta por Imobiliário no SIGI&ndash;&gt;-->
+<!--                        <table class="table table-dark" border="1">-->
+<!--                            <tr>-->
+<!--                                <form action="{{ url_for('imob', conj=conj, imob=imob) }}">-->
+<!--                                    <tr align="center">-->
+<!--                                        <td width="120px"><input type="text" id="conj" name="conj" placeholder="Cód. Cj"></td>-->
+<!--                                        <td width="150px"><input type="text" id="imob" name="imob" placeholder="Imobiliário"></td>-->
+<!--                                        <td colspan="3"><button type="submit" class="botao-login">Consulta Imobiliário</button></td>-->
+<!--                                    </tr>-->
+<!--                                </form>-->
+<!--                            </tr>-->
+<!--                            <tr></tr>-->
+<!--                        </table>-->
+<!--                    </td>-->
+<!--                    <td> &lt;!&ndash;Consulta de imóveis por mutuário no SIGI&ndash;&gt;-->
+<!--                        <table class="table table-dark" border="1">-->
+<!--                            <tr>-->
+<!--                                <form action="{{ url_for('imoveisMutuario') }}">-->
+<!--                                    <tr align="center">-->
+<!--                                        <td colspan="2"><input type="text" id="imoveisMutuario" name="imoveisMutuario" placeholder="Nome do Mutuário"></td>-->
+<!--                                        <td colspan="2"><button type="submit" class="botao-login">Consulta Mutuário</button></td>-->
+<!--                                    </tr>-->
+<!--                                </form>-->
+<!--                            </tr><tr></tr>-->
+<!--                        </table>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
