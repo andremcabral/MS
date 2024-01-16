@@ -297,7 +297,7 @@ def consultaSigiGeral():
                                     f" NomeRua like '%{consultaNomeRua}%' collate Latin1_General_CI_AI and"
                                     f" Numero like '%{consultaNum}%' and"
                                     f" CodImovel like '%{consultaImob}%'"
-                                    f" order by NomeConjunto, NomeRua, Numero").fetchall()
+                                    f" order by NomeConjunto, CodImovel, NomeRua, Numero").fetchall()
     qtd = cursorSIGI.execute(f"select * from Dados_Imovel_Morador where"
                                     f" CodConjunto like '%{consultaCodCj}%' and"
                                     f" NomeConjunto like '%{consultaNomeCj}%' collate Latin1_General_CI_AI and"

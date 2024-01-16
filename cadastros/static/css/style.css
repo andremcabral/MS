@@ -15,6 +15,10 @@ a{
   color: red;
 }
 
+li{
+    font-size: 20px;
+}
+
 .botao-login {
   border-radius: 25px;
   padding: 15px 20px;
@@ -276,11 +280,11 @@ img {
 }
 
 input::placeholder{
-    color: white;
+    color: black;
 }
 
 input {
-  background: #222;
+  background: lightgray;
   width: 100%;
   color: white;
   font-size: 16px;
