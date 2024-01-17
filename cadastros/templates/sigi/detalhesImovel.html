@@ -6,61 +6,59 @@
 </title>
 </head>
 {% block body %}
-<body>
+<body class="container">
     <p></p>
     <div class="popup">
-        <div class="container50">
+        <div class="container">
             <a href="{{ url_for('consultaConjuntos') if entrada=='inicial' else url_for('homepage') }} "class="botao-login">Início</a>
             <table width="100%" cellpadding="10">
                 <tr width="100%">
+                    <td><h2>Detalhes do Imóvel</h2></td>
                     <td align="right"><a href="{{ url_for('ficha', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Ficha</a></td>
                     <td><a href="{{ url_for('dossie', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Dossiê</a></td>
                 </tr>
             </table>
-            <h2>Detalhes do Imóvel</h2>
-            <table>
+            <table class="table table-dark table-striped table-hover" border="0">
                 <tr>
-                    <td><li>Conjunto:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][0] }} - {{ imovel[0][1] }}</li></td>
+                    <td>Cód Conjunto</td><td><input class="bloqueado" value="{{ imovel[0][0] }}" disabled></td>
+                    <td>Conjunto</td><td><input class="bloqueado" value="{{ imovel[0][1] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Município:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][2] }}</li></td>
-                    <td><li>Bairro:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][3] }}</li></td>
+                    <td>Município</td><td><input class="bloqueado" value="{{ imovel[0][2] }}" disabled></td>
+                    <td>Bairro</td><td><input class="bloqueado" value="{{ imovel[0][3] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Cód Rua:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][16] }}</li></td>
-                    <td><li>Rua:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][5] }}</li></td>
+                    <td>Cód Rua</td><td><input class="bloqueado" value="{{ imovel[0][16] }}" disabled></td>
+                    <td>Rua</td><td><input class="bloqueado" value="{{ imovel[0][16] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Código Imobiliário:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][6] }}</li></td>
-                    <td><li>Número:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][7] }}</li></td>
+                    <td>Código Imobiliário</td><td><input class="bloqueado" value="{{ imovel[0][6] }}" disabled></td>
+                    <td>Número</td><td><input class="bloqueado" value="{{ imovel[0][7] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Apartamento:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][8] }}</li></td>
-                    <td><li>Bloco:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][9] }}</li></td>
+                    <td>Apartamento</td><td><input class="bloqueado" value="{{ imovel[0][8] }}" disabled></td>
+                    <td>Bloco</td><td><input class="bloqueado" value="{{ imovel[0][9] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Complemento:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][10] }}</li></td>
-                    <td><li>Contrato:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][11] }}</li></td>
+                    <td>Complemento</td><td><input class="bloqueado" value="{{ imovel[0][10] }}" disabled></td>
+                    <td>Contrato</td><td><input class="bloqueado" value="{{ imovel[0][11] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Prógnum:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][12] }}</li></td>
-                    <td><li>CADMUT:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][15] }}</li></td>
+                    <td>Prógnum</td><td><input class="bloqueado" value="{{ imovel[0][12] }}" disabled></td>
+                    <td>CADMUT</td><td><input class="bloqueado" value="{{ imovel[0][15] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Morador:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][13] }}</li></td>
-                    <td><li>CPF:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][14] }}</li></td>
+                    <td>Morador</td><td><input class="bloqueado" value="{{ imovel[0][13] }}" disabled></td>
+                    <td>CPF</td><td><input class="bloqueado" value="{{ imovel[0][14] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Cartório:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][17] }}</li></td>
-                    <td><li>Livro:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][18] }}</li></td>
+                    <td>Cartório</td><td><input class="bloqueado" value="{{ imovel[0][17] }}" disabled></td>
+                    <td>Livro</td><td><input class="bloqueado" value="{{ imovel[0][18] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td><li>Folha:&nbsp&nbsp&nbsp&nbsp{{ imovel[0][19] }}</li></td>
-                    <td></td>
+                    <td>Folha</td><td><input class="bloqueado" value="{{ imovel[0][19] }}" disabled></td>
                 </tr>
             </table>
-
-            <p></p>
         </div>
     </div>
 </body>
