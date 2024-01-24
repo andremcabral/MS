@@ -20,6 +20,7 @@
                 <tr>
 <!--                    <th>Conjunto</th>-->
                     <th>Conjunto</th>
+                    <th>Bairro</th>
                     <th>Rua</th>
                     <th>Imob</th>
                     <th>Número</th>
@@ -35,8 +36,9 @@
                 {% for imovel in imoveis: %}
                 <tr>
 <!--                    <td>{{ imovel[0] }}</td>-->
-                    <td>{{ imovel[0] }}</td>
-                    <td>{{ imovel[1] }}</td>
+                    <td>{{ imovel[0] }} - {{ imovel[1] }}</td>
+                    <td>{{ imovel[3] }}</td>
+                    <td>{{ imovel[5] }}</td>
                     <td>{{ imovel[6] }}</td>
                     <td>{{ imovel[7] }}</td>
                     <td>{{ imovel[9] }}</td>
@@ -48,6 +50,7 @@
                     <td>{{ imovel[14] }}</td>
                     <td>{{ imovel[15] }}</td>
                     <td><a href="{{ url_for('detalhesImovel', codConjunto=imovel[0], codImob=imovel[6])}}">Detalhes</a></td>
+                    <td><a href="{{ url_for('imovel_IPTU_SIGI', bairro=imovel[3], rua=imovel[5], numero=imovel[7])}} ">IPTU</a></td>
                 </tr>
                 {% endfor %}
             </table>

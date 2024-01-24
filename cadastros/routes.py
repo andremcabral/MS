@@ -87,16 +87,17 @@ def imoveis():
     e_num = request.args.get('E_Num')
     e_bairro = request.args.get('E_Bairro')
     formulario = Imovel
-    pagina = int(request.args.get('page', 1))
+    # pagina = int(request.args.get('page', 1))
+    pagina = int(1)
     # linhas = 300
     offset = (pagina - 1) * linhas
     if referenciaInsc:
-        print('a')
         referencia = referenciaInsc
         imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao ").fetchall()
         # imoveis = cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
         qtdEncontrada = len(imoveis)
-        qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%'").fetchall())
+        # qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%'").fetchall())
+        qtdTotal=0
         referenciaDados = ""
         referenciaNum = ""
         referenciaBairro = ""
@@ -105,7 +106,8 @@ def imoveis():
         # if e_bairro and referenciaBairro and e_num and referenciaNum:
         imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI and numero like '%{referenciaNum}%' and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI or dados = '-' order by rua desc").fetchall()
         qtdEncontrada = len(imoveis)
-        qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI and numero like '%{referenciaNum}%' and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI or dados = '-' order by rua desc").fetchall())
+        # qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI and numero like '%{referenciaNum}%' and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI or dados = '-' order by rua desc").fetchall())
+        qtdTotal = 0
         num_paginas = int(qtdTotal / linhas) + 2
         # elif e_bairro and referenciaBairro:
         #     print('f')
@@ -178,6 +180,19 @@ def imovel(imovel):
     imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where inscricao = '{imovel}'").fetchall()
     # imovel = Imovel.query.filter_by(inscricao=imovel).first()
     return render_template("imoveis/imovel.html", imovel=imovel, form=form, imoveis=imoveis, localAcesso=localAcesso, status=status, nome=nome)
+@app.route("/imovel_IPTU_SIGI/<bairro>/<rua>/<numero>") # DETALHES DE UM IMÓVEL
+def imovel_IPTU_SIGI(bairro,rua,numero):
+    print(bairro,rua,numero)
+    pagina=1
+    formulario = Imovel
+    imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where rua = '{rua}' and numero = '{numero}' and bairro = '{bairro}'").fetchall()
+    qtdTotal=qtdEncontrada = len(imoveis)
+    referenciaInsc='-'
+    referenciaBairro = '-'
+    referenciaDados = '-'
+    referenciaNum = '-'
+    num_paginas = 1
+    return render_template("imoveis/imoveis.html", imoveis=imoveis, form=formulario, qtd=qtdEncontrada, qtdTotal=qtdTotal, referenciaInsc=referenciaInsc, referenciaBairro=referenciaBairro, referenciaDados=referenciaDados, referenciaNum=referenciaNum, linhas=linhas, localAcesso=localAcesso, status=status, nome=nome, num_paginas=num_paginas, pagina=pagina)
 
 @app.route("/conferencia/<numInsc>") # CONFERE INSCRIÇÃO NO SITE
 def confereInscricao(numInsc):
@@ -188,6 +203,17 @@ def confereInscricao(numInsc):
     navegador.find_element(By.ID, "ctl00_ePortalContent_DefiniGuia").click()
     resposta=navegador.find_element(By.XPATH, "//*[@id='aspnetForm']/div[3]/div[3]")
     return resposta
+
+@app.route("/mesclaImoveisIPTU/<bairro>/<rua>/<numero>") # DETALHES DO IMÓVEL
+def mesclaImoveisIPTU(bairro,rua,numero):
+    imoveis = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where Bairro = '{bairro}' and NomeRua = '{rua}' and Numero = '{numero}'").fetchall()
+    # imovel = cursorSIGI.execute(f"select top 3 * from dbo.Dados_Imovel_Morador").fetchall()
+    # imoveis = cursorSIGI.execute(f"select top {linhas} * from Dados_Imovel_Morador where"
+    #                                 f" NomeRua like '%{rua}%' collate Latin1_General_CI_AI and"
+    #                                 f" Numero like '%{numero}%'
+    #                                 f" order by NomeConjunto, CodImovel, NomeRua, Numero").fetchall()
+    print(imovel)
+    return render_template("sigi/consultaGeral.html",qtdExibida=len(imoveis),bairro=bairro, consultaNomeRua=rua, consultaNum=numero, imoveis=imoveis, localAcesso=localAcesso, status=status, nome=nome)
 
 #  /////////////////////////// ÁREA 2 - SIGI E PLANILHAS ////////////////////////////////////
 @app.route("/conjuntos") # Cadastro de conjuntos
@@ -234,6 +260,7 @@ def imoveisRua(codConjunto, nomeConjunto, rua, nomeRua):
     offset = (pagina - 1) * linhas
     imoveis = cursorSIGI.execute(f"select top {linhas} * from dbo.Dados_Imovel_Morador where CodConjunto = '{codConjunto}' and NomeRua = '{nomeRua}' collate Latin1_General_CI_AI order by CodImovel").fetchall()
     qtd=len(imoveis)
+    print(imoveis)
     num_paginas = int(qtd / linhas) + 2
     return render_template("sigi/imoveisRua.html", imoveis=imoveis, rua=rua, nomeConjunto=nomeConjunto, codConjunto=codConjunto, qtd=qtd, nomeRua=nomeRua, localAcesso=localAcesso, status=status, nome=nome, num_paginas=num_paginas, pagina=pagina)
 

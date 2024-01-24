@@ -22,7 +22,8 @@
             <tr><td>Bairro:</td><td>{{ imoveis[0][6] }}</td></tr>
             <tr><td>Contribuinte:</td><td>{{ imoveis[0][7] }}</td></tr>
         </table>
-        <a href="{{ url_for('confereInscricao', numInsc=imoveis[0][0]) }} " target="_blank" class="botao-login">confere</a>
+        <a href="{{ url_for('mesclaImoveisIPTU', bairro=imoveis[0][6], rua=imoveis[0][3], numero=imoveis[0][4]) }} " target="_blank" class="botao-login">SIGI</a>
+        <a href="{{ url_for('confereInscricao', numInsc=imoveis[0][0]) }} " target="_blank" class="botao-login">Confere</a>
     </form>
 </body>
 {% endblock %}
