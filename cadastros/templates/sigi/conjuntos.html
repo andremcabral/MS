@@ -25,6 +25,8 @@
                     <th>Bairro(SIGI)</th>
                     <th>Município(Planilha)</th>
                     <th>Município(SIGI)</th>
+                    <th>Fichas Digit.</th>
+<!--                    <th width="150px">Plano de Com.</th>-->
                 </tr>
                 {% for conjunto in conjuntos: %}
                 <tr>
@@ -36,6 +38,8 @@
                     <td>{{ conjunto[5] }}</td>
                     <td>{{ conjunto[15] }}</td>
                     <td>{{ conjunto[14] }}</td>
+                    <td>{{ conjunto[22] }}</td>
+<!--                    <td>{{ conjunto[21] }}</td>-->
 <!--                    <td align="center">{% if conjunto[4] == "True" %}Sim{% else %}Não{% endif %}</td>-->
                     <td><a href="{{ url_for('conjunto', codConjunto=conjunto[1], nomeConjunto=conjunto[3])}} ">Detalhes</a></td>
                     <td><a href="{{ url_for('ruasConjunto', codConjunto=conjunto[1], nomeConjunto=conjunto[3])}} ">Ruas</a></td>

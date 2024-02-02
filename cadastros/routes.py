@@ -96,18 +96,22 @@ def imoveis():
         imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao ").fetchall()
         # imoveis = cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%' order by inscricao OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
         qtdEncontrada = len(imoveis)
-        # qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where inscricao like '%{referencia}%'").fetchall())
-        qtdTotal=0
+        qtdTotal = len(imoveis)
+        # qtdTotal=0
         referenciaDados = ""
         referenciaNum = ""
         referenciaBairro = ""
         num_paginas = int(qtdTotal / linhas) + 2
     else:
         # if e_bairro and referenciaBairro and e_num and referenciaNum:
-        imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI and numero like '%{referenciaNum}%' and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI or dados = '-' order by rua desc").fetchall()
+        imoveis = cursorCL.execute(f"select top {linhas} * from {tabelaIPTU} "
+                                   f"where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI "
+                                   f"and numero like '%{referenciaNum}%' "
+                                   f"and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI "
+                                   f"and rua != '-' order by bairro, rua").fetchall()
         qtdEncontrada = len(imoveis)
-        # qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU} where dados like '%{referenciaDados}%' collate Latin1_General_CI_AI and numero like '%{referenciaNum}%' and bairro like '%{referenciaBairro}%' collate Latin1_General_CI_AI or dados = '-' order by rua desc").fetchall())
-        qtdTotal = 0
+        qtdTotal = len(cursorCL.execute(f"select * from {tabelaIPTU}").fetchall())
+        # qtdTotal = 0
         num_paginas = int(qtdTotal / linhas) + 2
         # elif e_bairro and referenciaBairro:
         #     print('f')
@@ -224,16 +228,40 @@ def listaConjuntos():
     linhas = 500
     offset = (pagina - 1) * linhas
     referenciaCod = request.args.get('referenciaCod')
+    planoComerc = request.args.get('planoComerc')
+    digitalizados = request.args.get('digitalizados')
     formulario = Conjunto
     if referenciaCod:
         referencia = request.args.get('referenciaCod')
+        planoComerc = request.args.get('planoComerc')
         conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where COD like '%{referencia}%' order by COD").fetchall()
         # conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where COD like '%{referencia}%' order by COD OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
         qtdEncontrada = len(cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where COD like '%{referencia}%' order by COD").fetchall())
         num_paginas = int(qtdEncontrada / linhas) + 2
+    elif planoComerc:
+        planoComerc = request.args.get('planoComerc')
+        referencia = planoComerc
+        conjuntos = cursorSIGI.execute(
+            f"select top {linhas} * from dbo.CONJUNTOS_GERAL where PlanoDeComercializacao = '{planoComerc}' collate Latin1_General_CI_AI order by COD").fetchall()
+        qtdEncontrada = len(conjuntos)
+        num_paginas = int(qtdEncontrada / linhas) + 2
+    elif digitalizados:
+        digitalizados = request.args.get('digitalizados')
+        referencia = digitalizados
+        conjuntos = cursorSIGI.execute(
+            f"select top {linhas} * from dbo.CONJUNTOS_GERAL where Digitalizado = '{digitalizados}' collate Latin1_General_CI_AI order by COD").fetchall()
+        qtdEncontrada = len(conjuntos)
+        num_paginas = int(qtdEncontrada / linhas) + 2
     else:
         referencia = request.args.get('referenciaCon')
-        conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' collate Latin1_General_CI_AI or nomeSigi like '%{referencia}%' collate Latin1_General_CI_AI or bairroPlanilha like '%{referencia}%' collate Latin1_General_CI_AI or bairroSigi like '%{referencia}%' collate Latin1_General_CI_AI order by COD").fetchall()
+        planoComerc = request.args.get('planoComerc')
+        conjuntos = cursorSIGI.execute(f"select top {linhas} * from dbo.CONJUNTOS_GERAL "
+                                       f"where nomePlanilha like '%{referencia}%' collate Latin1_General_CI_AI "
+                                       f"or nomeSigi like '%{referencia}%' collate Latin1_General_CI_AI "
+                                       f"or bairroPlanilha like '%{referencia}%' collate Latin1_General_CI_AI "
+                                       f"or bairroSigi like '%{referencia}%' collate Latin1_General_CI_AI "
+                                       f"order by COD").fetchall()
+
         # conjuntos = cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' or nomeSigi like '%{referencia}%' or bairroPlanilha like '%{referencia}%' or bairroSigi like '%{referencia}%' order by COD OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
         # qtdEncontrada = len(cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' or nomeSigi like '%{referencia}%' or bairroPlanilha like '%{referencia}%' or bairroSigi like '%{referencia}%' order by COD").fetchall())
         qtdEncontrada=len(cursorSIGI.execute(f"select * from dbo.CONJUNTOS_GERAL where nomePlanilha like '%{referencia}%' collate Latin1_General_CI_AI or nomeSigi like '%{referencia}%' collate Latin1_General_CI_AI or bairroPlanilha like '%{referencia}%' collate Latin1_General_CI_AI or bairroSigi like '%{referencia}%' collate Latin1_General_CI_AI").fetchall())

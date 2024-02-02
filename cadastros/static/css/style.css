@@ -218,6 +218,12 @@ img {
   width: 100%;
 }
 
+.form-select {
+  appearance: none;
+  background-color: black;
+  color: lightBlue;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
