@@ -13,49 +13,52 @@
             <a href="{{ url_for('consultaConjuntos') if entrada=='inicial' else url_for('homepage') }} "class="botao-login">Início</a>
             <table width="100%" cellpadding="10">
                 <tr width="100%">
-                    <td><h2>Detalhes do Imóvel</h2></td>
-                    <td align="right"><a href="{{ url_for('ficha', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Ficha</a></td>
-                    <td><a href="{{ url_for('dossie', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Dossiê</a></td>
+                    <td border="1" colspan="5"><h2>Detalhes do Imóvel</h2></td>
+                    <td width="50" align="right"><a href="{{ url_for('ficha', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Ficha</a></td>
+                    <td width="50"><a href="{{ url_for('dossie', cj=imovel[0][0], imb=imovel[0][6])}}" target="_blank" class="botao-login">Dossiê</a></td>
                 </tr>
             </table>
             <table class="table table-dark table-striped table-hover" border="0">
                 <tr>
-                    <td width="100">Cód Conjunto</td><td><input class="bloqueado" value="{{ imovel[0][0] }}" disabled></td>
-                    <td>Conjunto</td><td><input class="bloqueado" value="{{ imovel[0][1] }}" disabled></td>
-                    <td>Município</td><td><input class="bloqueado" value="{{ imovel[0][2] }}" disabled></td>
+                    <td width="50">Cód Conjunto</td>
+                        <td width="170"><input class="bloqueado" value="{{ imovel[0][0] }}" disabled></td>
+                    <td width="50">Conjunto</td>
+                        <td><input class="bloqueado" value="{{ imovel[0][1] }}" disabled></td>
+                    <td width="110">Município</td>
+                        <td><input class="bloqueado" value="{{ imovel[0][2] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Bairro</td><td><input class="bloqueado" value="{{ imovel[0][3] }}" disabled></td>
                     <td>Cód Rua</td><td><input class="bloqueado" value="{{ imovel[0][16] }}" disabled></td>
                     <td>Rua</td><td><input class="bloqueado" value="{{ imovel[0][5] }}" disabled></td>
+                    <td>Bairro</td><td><input class="bloqueado" value="{{ imovel[0][3] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Código Imobiliário</td><td><input class="bloqueado" value="{{ imovel[0][6] }}" disabled></td>
+                    <td>Código Imobiliário</td><td><input class="bloqueado" value="{{ imovel[0][6] }}" disabled></td>
                     <td>Número</td><td><input class="bloqueado" value="{{ imovel[0][7] }}" disabled></td>
                     <td>Apartamento</td><td><input class="bloqueado" value="{{ imovel[0][8] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Bloco</td><td><input class="bloqueado" value="{{ imovel[0][9] }}" disabled></td>
+                    <td>Bloco</td><td><input class="bloqueado" value="{{ imovel[0][9] }}" disabled></td>
                     <td>Complemento</td><td><input class="bloqueado" value="{{ imovel[0][10] }}" disabled></td>
                     <td>Cód Contrato (Imóvel)</td><td><input class="bloqueado" value="{{ imovel[0][11] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Cód. Prógnum</td><td><input class="bloqueado" value="{{ imovel[0][12] }}" disabled></td>
+                    <td>Cód. Prógnum</td><td><input class="bloqueado" value="{{ imovel[0][12] }}" disabled></td>
                     <td>CADMUT</td><td><input class="bloqueado" value="{{ imovel[0][15] }}" disabled></td>
                     <td>Morador</td><td><input class="bloqueado" value="{{ imovel[0][13] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">CPF</td><td><input class="bloqueado" value="{{ imovel[0][14] }}" disabled></td>
+                    <td>CPF</td><td><input class="bloqueado" value="{{ imovel[0][14] }}" disabled></td>
                     <td>Cartório</td><td><input class="bloqueado" value="{{ imovel[0][17] }}" disabled></td>
                     <td>Livro</td><td><input class="bloqueado" value="{{ imovel[0][18] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Folha</td><td><input class="bloqueado" value="{{ imovel[0][19] }}" disabled></td>
+                    <td>Folha</td><td><input class="bloqueado" value="{{ imovel[0][19] }}" disabled></td>
                     <td>Tipo de Contrato</td><td><input class="bloqueado" value="{{ imovel[0][21] }} - {{ imovel[0][20] }}" disabled></td>
                     <td>Situação do Contrato</td><td><input class="bloqueado" value="{{ imovel[0][22] }} - {{ imovel[0][30] }}" disabled></td>
                 </tr>
                 <tr>
-                    <td width="100">Data de Cancelamento</td><td><input class="bloqueado" value="{{ imovel[0][23] }}" disabled></td>
+                    <td>Data de Cancelamento</td><td><input class="bloqueado" value="{{ imovel[0][23] }}" disabled></td>
                     <td>Data da Escritura</td><td><input class="bloqueado" value="{{ imovel[0][24] }}" disabled></td>
 <!--                    <td>Situação do Imóvel</td><td><input class="bloqueado" value="{{ imovel[0][25] }}" disabled></td>-->
 <!--                </tr>-->
@@ -64,7 +67,7 @@
 <!--                    <td>FCVS</td><td><input class="bloqueado" value="{{ imovel[0][27] }}" disabled></td>-->
                 </tr>
                 <tr>
-                    <td width="100">Contrato CEF</td><td><input class="bloqueado" value="{{ imovel[0][28] }}" disabled></td>
+                    <td>Contrato CEF</td><td><input class="bloqueado" value="{{ imovel[0][28] }}" disabled></td>
                     <td>Contrato CADMUT</td><td><input class="bloqueado" value="{{ imovel[0][29] }}" disabled></td>
                 </tr>
             </table>

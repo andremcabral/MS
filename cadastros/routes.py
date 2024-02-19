@@ -398,7 +398,7 @@ def resumo():
     # else:
     resumo = cursorCL.execute(f"select top {linhas} * from dbo.Junta_IPTU_DADOS_SIGI where rua like '%{referenciaRua}%' collate Latin1_General_CI_AI and codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, rua").fetchall()
     # resumo = cursorCL.execute(f"select * from dbo.resumo where RuaPLANILHA like '%{referenciaRua}%' order by NomeConjunto, ruaPLANILHA OFFSET {offset} ROWS FETCH NEXT {linhas} ROWS ONLY").fetchall()
-    qtd = cursorCL.execute(f"select * from dbo.Junta_IPTU_DADOS_SIGI where rua like '%{referenciaRua}%' collate Latin1_General_CI_AI").fetchall()
+    qtd = cursorCL.execute(f"select * from dbo.Junta_IPTU_DADOS_SIGI where rua like '%{referenciaRua}%' collate Latin1_General_CI_AI and codConjunto like '%{referenciaCodCJ}%' order by NomeConjunto, rua").fetchall()
     # conjuntos = cursor.execute(f"select * from dbo.resumo where NomeConjunto like '%{referencia}%' order by NomeConjunto").fetchall()
     qtdEncontrada = len(resumo)
     qtd = len(qtd)
